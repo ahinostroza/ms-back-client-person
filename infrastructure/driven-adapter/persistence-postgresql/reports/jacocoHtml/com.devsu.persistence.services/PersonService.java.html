@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>PersonService.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">persistence-postgresql</a> &gt; <a href="index.source.html" class="el_package">com.devsu.persistence.services</a> &gt; <span class="el_source">PersonService.java</span></div><h1>PersonService.java</h1><pre class="source lang-java linenums">package com.devsu.persistence.services;
+
+import com.devsu.app.model.persistence.Person;
+import com.devsu.gateway.PersonGateway;
+import com.devsu.persistence.entities.PersonEntity;
+import com.devsu.persistence.mapper.PersonMapper;
+import com.devsu.persistence.repository.PersonRepository;
+import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.stereotype.Service;
+
+import java.util.UUID;
+
+<span class="nc" id="L14">@Slf4j</span>
+@Service
+<span class="nc" id="L16">@AllArgsConstructor</span>
+public class PersonService implements PersonGateway {
+
+    private final PersonRepository personRepository;
+    private final PersonMapper mapper;
+
+    @Override
+    public Person insert(Person person) {
+<span class="nc" id="L24">        return mapper.toModel(personRepository.save(mapper.toEntity(person)));</span>
+    }
+
+    @Override
+<span class="nc" id="L28">    public Person update(Person person) { return mapper.toModel(personRepository.save(mapper.toEntity(person))); }</span>
+
+    @Override
+<span class="nc" id="L31">    public boolean existById(UUID id) { return personRepository.existsById(id); }</span>
+
+    @Override
+    public Iterable&lt;Person&gt; findAll() {
+<span class="nc" id="L35">        return mapper.map(personRepository.findAll());</span>
+    }
+
+    @Override
+<span class="nc" id="L39">    public Person findById(UUID id) { return mapper.toModel(personRepository.findById(id).get()); }</span>
+
+    @Override
+    public void delete(UUID id) {
+<span class="nc" id="L43">        personRepository.deleteById(id);</span>
+<span class="nc" id="L44">    }</span>
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

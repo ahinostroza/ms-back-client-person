@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>UpdatePersonDtoMapper.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">entry-point</a> &gt; <a href="index.source.html" class="el_package">com.devsu.app.rest.mapper</a> &gt; <span class="el_source">UpdatePersonDtoMapper.java</span></div><h1>UpdatePersonDtoMapper.java</h1><pre class="source lang-java linenums">package com.devsu.app.rest.mapper;
+
+import com.devsu.app.model.persistence.Person;
+import com.devsu.app.rest.dto.UpdatePersonDto;
+import lombok.experimental.UtilityClass;
+
+@UtilityClass
+<span class="nc" id="L8">public class UpdatePersonDtoMapper {</span>
+    public static Person dtoToModel(UpdatePersonDto updatePersonDto) {
+<span class="nc" id="L10">        return Person.builder()</span>
+<span class="nc" id="L11">                .personId(updatePersonDto.getPersonId())</span>
+<span class="nc" id="L12">                .name(updatePersonDto.getName())</span>
+<span class="nc" id="L13">                .gender(updatePersonDto.getGender())</span>
+<span class="nc" id="L14">                .age(updatePersonDto.getAge())</span>
+<span class="nc" id="L15">                .document(updatePersonDto.getDocument())</span>
+<span class="nc" id="L16">                .address(updatePersonDto.getAddress())</span>
+<span class="nc" id="L17">                .phone(updatePersonDto.getPhone())</span>
+<span class="nc" id="L18">                .build();</span>
+    }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>

@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="es"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>ExceptionHandlersController.java</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">entry-point</a> &gt; <a href="index.source.html" class="el_package">com.devsu.app.rest</a> &gt; <span class="el_source">ExceptionHandlersController.java</span></div><h1>ExceptionHandlersController.java</h1><pre class="source lang-java linenums">package com.devsu.app.rest;
+
+import com.devsu.app.model.config.DevsuException;
+import com.devsu.app.rest.config.ValidationConstants;
+import com.devsu.helper.constant.ExceptionConstant;
+import com.devsu.helper.dto.ApiResponseDto;
+import com.devsu.helper.dto.ResponseDto;
+import com.devsu.helper.util.ExceptionUtil;
+import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ControllerAdvice;
+import org.springframework.web.bind.annotation.ExceptionHandler;
+
+<span class="nc" id="L17">@Slf4j</span>
+@ControllerAdvice
+<span class="nc" id="L19">@RequiredArgsConstructor</span>
+public class ExceptionHandlersController {
+
+     private final ExceptionUtil exceptionUtil;
+
+     @ExceptionHandler({DevsuException.class})
+     public ResponseEntity&lt;ApiResponseDto&gt; handleDevsuException(DevsuException ex) {
+<span class="nc" id="L26">          ApiResponseDto response = ApiResponseDto.builder()</span>
+<span class="nc" id="L27">                  .status(ex.getStatus())</span>
+<span class="nc" id="L28">                  .code(ex.getCode())</span>
+<span class="nc" id="L29">                  .message(ex.getMessage()).build();</span>
+<span class="nc" id="L30">          return new ResponseEntity&lt;&gt;(response, HttpStatus.valueOf(ex.getStatus()));</span>
+     }
+
+     @ExceptionHandler({Exception.class})
+     public ResponseEntity&lt;ApiResponseDto&gt; handleException(Exception ex) {
+<span class="nc" id="L35">          ApiResponseDto response = ApiResponseDto.builder()</span>
+<span class="nc" id="L36">                  .status(HttpStatus.INTERNAL_SERVER_ERROR.value())</span>
+<span class="nc" id="L37">                  .code(ExceptionConstant.DEV0002)</span>
+<span class="nc" id="L38">                  .message(ex.getMessage()).build();</span>
+<span class="nc" id="L39">          return new ResponseEntity&lt;&gt;(response, HttpStatus.valueOf(HttpStatus.INTERNAL_SERVER_ERROR.value()));</span>
+     }
+
+     @ExceptionHandler({MethodArgumentNotValidException.class})
+     public ResponseEntity&lt;ResponseDto&lt;Void&gt;&gt; handleMethodArgumentNotValidException(MethodArgumentNotValidException ex) {
+<span class="nc" id="L44">          ResponseDto&lt;Void&gt; response = this.exceptionUtil.createResponseFromFieldErrors(ex.getFieldErrors());</span>
+<span class="nc" id="L45">          return new ResponseEntity&lt;&gt;(response, HttpStatus.valueOf(HttpStatus.BAD_REQUEST.value()));</span>
+     }
+}
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.9.202303310957</span></div></body></html>
