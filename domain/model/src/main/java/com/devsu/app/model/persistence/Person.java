@@ -8,7 +8,6 @@ import java.util.UUID;
 
 @Builder
 @Getter
-@JsonInclude(JsonInclude.Include.NON_NULL)
 public class Person {
     private UUID personId;
     private String name;
