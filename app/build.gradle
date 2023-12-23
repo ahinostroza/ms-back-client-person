@@ -1,0 +1,24 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    implementation project(':model')
+    implementation project(':gateway')
+    implementation project(':usecase')
+    implementation project(':entry-point')
+    implementation project(':persistence-postgresql')
+    implementation project(':message-helper')
+    implementation 'org.springframework.boot:spring-boot-starter'
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly('org.springframework.boot:spring-boot-devtools')
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+    testImplementation 'org.junit.jupiter:junit-jupiter-engine:5.10.1'
+}
+
+task explodedJar(type: Copy) {
+    with jar
+    into "${projectDir}/exploded"
+}
+
+jar{
+    enabled(false)
+}

@@ -1,0 +1,4 @@
+dependencies {
+    implementation project(':message-helper')
+    implementation 'org.springframework.boot:spring-boot-starter-web'
+}

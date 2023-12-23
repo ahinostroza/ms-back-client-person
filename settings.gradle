@@ -1,0 +1,25 @@
+rootProject.name = 'ms-back-client-person'
+
+//app service
+include ':app-service'
+project(':app-service').projectDir=file('./app')
+
+//domain: business logic
+include ':model', 'usecase', 'gateway'
+project(':model').projectDir=file('./domain/model')
+project(':usecase').projectDir=file('./domain/usecase')
+project(':gateway').projectDir=file('./domain/gateway')
+
+//driven adapters:
+include 'persistence-postgresql'
+project(':persistence-postgresql').projectDir=file('./infrastructure/driven-adapter/persistence-postgresql')
+
+//entry points:
+include 'entry-point'
+project(':entry-point').projectDir=file('./infrastructure/entry-point/api-rest')
+
+//helpers:
+include ':message-helper', ':exception-helper'
+project(':message-helper').projectDir=file('./infrastructure/helper/message-helper')
+project(':exception-helper').projectDir=file('./infrastructure/helper/exception-helper')
+
